@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:COMList"
         mc:Ignorable="d"
-        Title="COMList by Dirk Schramm" Height="200" Width="400" >
+        Title="COMList by Dirk Schramm" Height="200" Width="400" Icon="Fatcow-Farm-Fresh-Port.ico" >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -13,7 +13,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <ToolBar>
-            <ToggleButton x:Name="ButtonAlwaysOnTop" Content="Always on top" Height="22" VerticalAlignment="Top" Checked="ButtonAlwaysOnTop_Checked" Unchecked="ButtonAlwaysOnTop_Unchecked"/>
+            <ToggleButton x:Name="ButtonAlwaysOnTop" Height="22" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="ButtonAlwaysOnTop_Checked" Unchecked="ButtonAlwaysOnTop_Unchecked">
+                <Image x:Name="ImagePin" Source="Resources/Unpin.png"/>
+            </ToggleButton>
         </ToolBar>
 
         <ListBox x:Name="ListBoxCOMPorts" Grid.Row="1"/>

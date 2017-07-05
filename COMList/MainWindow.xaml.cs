@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Media.Imaging;
 
 namespace COMList
 {
@@ -30,12 +31,25 @@ namespace COMList
 
             Thread thread = new Thread(() =>
                 {
-                    using (var searcher = new ManagementObjectSearcher("SELECT * FROM WIN32_SerialPort"))
+                    //using (var searcher = new ManagementObjectSearcher("SELECT * FROM WIN32_SerialPort"))
+                    using (var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity WHERE ClassGuid=\"{4d36e978-e325-11ce-bfc1-08002be10318}\""))
                     {
                         string[] portnames = SerialPort.GetPortNames();
 
                         var ports = searcher.Get().Cast<ManagementBaseObject>().ToList();
-                        tList = (from n in portnames join p in ports on n equals p["DeviceID"].ToString() select n + " - " + p["Caption"]).ToList();
+                        //tList = (from n in portnames join p in ports on n equals p["DeviceID"].ToString() select n + " - " + p["Caption"]).ToList();
+                        //tList = (from n in portnames join p in ports on n equals p["Caption"].ToString().Substring(p["Caption"].ToString().IndexOf("(COM") + 1, p["Caption"].ToString().LastIndexOf(")") - p["Caption"].ToString().IndexOf("(COM")) select n + " - " + p["Caption"]).ToList();
+                        foreach(string port in portnames)
+                        {
+                            foreach(ManagementBaseObject p in ports)
+                            {
+                                string x = p["Caption"].ToString().Substring(p["Caption"].ToString().IndexOf("(COM") + 1, p["Caption"].ToString().LastIndexOf(")") - p["Caption"].ToString().IndexOf("(COM") - 1);
+                                if (x.Equals(port))
+                                {
+                                    tList.Add(port + " - " + p["Caption"]);
+                                }
+                            }
+                        }
 
                         tList.Sort(new Comparison<string>(delegate (string a, string b)
                         {
@@ -102,7 +116,8 @@ namespace COMList
             Guid usbXpressGuid = new Guid("3c5e1462-5695-4e18-876b-f3f3d08aaf18");
             Guid cp210xGuid = new Guid("993f7832-6e2d-4a0f-b272-e2c78e74f93e");
             Guid newCP210xGuid = new Guid("a2a39220-39f4-4b88-aecb-3d86a35dc748");
-            Guid usbGuid = new Guid("A5DCBF10-6530-11D2-901F-00C04FB951ED");
+            //Guid usbGuid = new Guid("A5DCBF10-6530-11D2-901F-00C04FB951ED");
+            Guid usbGuid = new Guid("4d36e978-e325-11ce-bfc1-08002be10318");
 
             RegisterNotification(usbGuid);
         }
@@ -162,12 +177,24 @@ namespace COMList
         {
             Window parent = Window.GetWindow(this);
             parent.Topmost = true;
+
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri("Resources/Pin.png", UriKind.Relative);
+            bi.EndInit();
+            ImagePin.Source = bi;
         }
 
         private void ButtonAlwaysOnTop_Unchecked(object sender, RoutedEventArgs e)
         {
             Window parent = Window.GetWindow(this);
             parent.Topmost = false;
+
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri("Resources/Unpin.png", UriKind.Relative);
+            bi.EndInit();
+            ImagePin.Source = bi;
         }
     }
 }
