@@ -116,8 +116,8 @@ namespace COMList
             Guid usbXpressGuid = new Guid("3c5e1462-5695-4e18-876b-f3f3d08aaf18");
             Guid cp210xGuid = new Guid("993f7832-6e2d-4a0f-b272-e2c78e74f93e");
             Guid newCP210xGuid = new Guid("a2a39220-39f4-4b88-aecb-3d86a35dc748");
-            //Guid usbGuid = new Guid("A5DCBF10-6530-11D2-901F-00C04FB951ED");
-            Guid usbGuid = new Guid("4d36e978-e325-11ce-bfc1-08002be10318");
+            Guid usbGuid = new Guid("A5DCBF10-6530-11D2-901F-00C04FB951ED");
+            //Guid usbGuid = new Guid("4d36e978-e325-11ce-bfc1-08002be10318");
 
             RegisterNotification(usbGuid);
         }
