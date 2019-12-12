@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="system.io.ports" Version="4.7.0" />
+    <PackageReference Include="system.management" Version="4.7.0" />
+  </ItemGroup>
+<ItemGroup>
+    <Resource Include="Fatcow-Farm-Fresh-Port.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Unpin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pin.png" />
+  </ItemGroup>
+</Project>
