@@ -69,7 +69,10 @@ namespace COMList
 
             foreach (string s in tList)
             {
-                ListBoxCOMPorts.Items.Add(s);
+                if(ListBoxCOMPorts.Items.IndexOf(s) < 0)
+                {
+                    ListBoxCOMPorts.Items.Add(s);
+                }
             }
         }
 
@@ -158,14 +161,9 @@ namespace COMList
                         }
 
                         // An HID device was connected or removed
-                        if (nEventType == Dbt.DBT_DEVICEREMOVECOMPLETE)
+                        if (nEventType == Dbt.DBT_DEVICEREMOVECOMPLETE || nEventType == Dbt.DBT_DEVICEARRIVAL)
                         {
                             //MessageBox.Show("Device \"" + devicePath + "\" was removed");
-                            listCOMPorts();
-                        }
-                        else if (nEventType == Dbt.DBT_DEVICEARRIVAL)
-                        {
-                            //MessageBox.Show("Device \"" + devicePath + "\" arrived");
                             listCOMPorts();
                         }
                     }
